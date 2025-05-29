@@ -1225,7 +1225,8 @@ section {
     .dropdown {
         width: 100%;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     
     .dropdown-toggle {
@@ -1236,6 +1237,20 @@ section {
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        border: none;
+        background: none;
+        color: inherit;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-toggle:hover {
+        color: var(--primary-color);
+    }
+
+    .dropdown-toggle i {
+        transition: transform 0.3s ease;
     }
     
     .dropdown-menu {
@@ -1259,10 +1274,24 @@ section {
         max-height: 200px;
     }
 
+    .dropdown.active .dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+
     .dropdown-menu a {
         padding: 1rem 1.5rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 1rem;
+        text-align: center;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+        background: rgba(0, 212, 255, 0.1);
+        color: var(--primary-color);
     }
 
     .dropdown-menu a:last-child {
