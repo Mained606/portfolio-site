@@ -5,6 +5,8 @@ const navLinks = document.querySelectorAll('.nav-menu a');
 const skillBars = document.querySelectorAll('.skill-progress');
 const typewriterElement = document.querySelector('.typewriter');
 const cursorGlow = document.querySelector('.cursor-glow');
+const dropdown = document.querySelector('.dropdown');
+const dropdownToggle = document.querySelector('.dropdown-toggle');
 
 // 타이핑 애니메이션
 class TypeWriter {
@@ -69,9 +71,24 @@ navLinks.forEach(link => {
     });
 });
 
+// 드롭다운 메뉴 기능 (모바일에서 클릭으로 작동)
+if (dropdownToggle) {
+    dropdownToggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        }
+    });
+}
+
 // 부드러운 스크롤
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
+        // 외부 링크는 건너뛰기
+        if (link.getAttribute('href').includes('.html') || link.getAttribute('href') === '#') {
+            return;
+        }
+        
         e.preventDefault();
         const targetId = link.getAttribute('href');
         const targetSection = document.querySelector(targetId);
