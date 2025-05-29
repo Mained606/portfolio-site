@@ -79,7 +79,28 @@ if (dropdownToggle) {
             dropdown.classList.toggle('active');
         }
     });
+    
+    // 화면 크기 변경 시 드롭다운 상태 리셋
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            dropdown.classList.remove('active');
+        }
+    });
 }
+
+// 모바일 메뉴 외부 클릭 시 닫기
+document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) {
+        const navContainer = document.querySelector('.nav-container');
+        const isClickInsideNav = navContainer.contains(e.target);
+        
+        if (!isClickInsideNav && navMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            dropdown.classList.remove('active');
+        }
+    }
+});
 
 // 부드러운 스크롤
 navLinks.forEach(link => {
