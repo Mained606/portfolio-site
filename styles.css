@@ -1224,12 +1224,18 @@ section {
     /* 모바일 드롭다운 스타일 */
     .dropdown {
         width: 100%;
+        display: flex;
+        justify-content: center;
     }
     
     .dropdown-toggle {
         width: 100%;
         justify-content: center;
         padding: 1rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
     
     .dropdown-menu {

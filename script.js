@@ -63,20 +63,36 @@ hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 
-// 네비게이션 링크 클릭 시 메뉴 닫기
+// 네비게이션 링크 클릭 시 메뉴 닫기 (드롭다운 토글 제외)
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+        // 드롭다운 토글이면 메뉴를 닫지 않음
+        if (link.classList.contains('dropdown-toggle')) {
+            return;
+        }
+        
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        dropdown.classList.remove('active');
     });
 });
 
-// 드롭다운 메뉴 기능 (모바일에서 클릭으로 작동)
+// 드롭다운 메뉴 기능 개선
 if (dropdownToggle) {
     dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        
         if (window.innerWidth <= 768) {
-            e.preventDefault();
+            // 모바일에서 드롭다운 토글
             dropdown.classList.toggle('active');
+            
+            // 드롭다운이 열릴 때 아이콘 회전
+            const icon = dropdownToggle.querySelector('i');
+            if (dropdown.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
         }
     });
     
@@ -84,6 +100,8 @@ if (dropdownToggle) {
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             dropdown.classList.remove('active');
+            const icon = dropdownToggle.querySelector('i');
+            icon.style.transform = 'rotate(0deg)';
         }
     });
 }
@@ -98,8 +116,32 @@ document.addEventListener('click', (e) => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             dropdown.classList.remove('active');
+            
+            // 드롭다운 아이콘 상태 리셋
+            const icon = dropdownToggle?.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+            }
         }
     }
+});
+
+// 드롭다운 메뉴 내 링크 클릭 시 메뉴 닫기
+const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
+dropdownLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            dropdown.classList.remove('active');
+            
+            // 드롭다운 아이콘 상태 리셋
+            const icon = dropdownToggle?.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    });
 });
 
 // 부드러운 스크롤
